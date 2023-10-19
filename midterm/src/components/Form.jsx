@@ -13,7 +13,7 @@ function Form() {
   };
 
   return (
-    <div>
+    <div class="webForm">
       <h1>Employee Registration Form</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
@@ -38,9 +38,17 @@ function Form() {
         </div>
         <div>
           <label>Email ID:</label>
-          <input {...register('email', { required: true })} />
+          <input
+            {...register('email', {
+              required: true,
+              pattern: /^\S+@\S+\.\S+$/, // Regular expression for a basic email format
+            })}
+          />
           {errors.email && errors.email.type === 'required' && (
             <p className="error">Email cannot be left blank.</p>
+          )}
+          {errors.email && errors.email.type === 'pattern' && (
+            <p className="error">Please enter a valid email address.</p>
           )}
         </div>
         <div>
@@ -61,31 +69,31 @@ function Form() {
         </div>
         <div>
           <label>Qualification:</label>
-          <div>
+          <div class="checkboxContainer">
             <label>
               <input type="checkbox" {...register('qualification.HighSchool')} />
               High School (10th)
             </label>
           </div>
-          <div>
+          <div class="checkboxContainer">
             <label>
               <input type="checkbox" {...register('qualification.HigherSchool')} />
               Higher School (12th)
             </label>
           </div>
-          <div>
+          <div class="checkboxContainer">
             <label>
               <input type="checkbox" {...register('qualification.Graduation')} />
               Graduation (Bachelor's)
             </label>
           </div>
-          <div>
+          <div class="checkboxContainer">
             <label>
               <input type="checkbox" {...register('qualification.PostGraduation')} />
               Post Graduation (Masters)
             </label>
           </div>
-          <div>
+          <div class="checkboxContainer">
             <label>
               <input type="checkbox" {...register('qualification.Other')} />
               Other
@@ -95,6 +103,10 @@ function Form() {
         <button type="submit">Submit</button>
         <button type="reset">Reset</button>
       </form>
+
+      <footer>
+        <h6>Created by Yaatu Adem (301294492) for COMP229</h6>
+      </footer>
     </div>
   );
 }
